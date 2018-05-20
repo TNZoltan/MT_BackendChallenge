@@ -62,5 +62,4 @@ typings/
 
 # Custom (Jetbrains, Compiled files, ...)
 .idea
-dist/
 package-lock.json
