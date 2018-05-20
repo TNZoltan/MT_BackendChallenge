@@ -1,0 +1,25 @@
+{
+  "name": "csv-parser",
+  "version": "1.0.0",
+  "description": "Converts a csv file into a multidimensional array.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TNZoltan/MT_BackendChallenge.git"
+  },
+  "keywords": [
+    "csv"
+  ],
+  "author": "Zoltan Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TNZoltan/MT_BackendChallenge/issues"
+  },
+  "homepage": "https://github.com/TNZoltan/MT_BackendChallenge#readme",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}
