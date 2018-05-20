@@ -1,3 +1,7 @@
+/*
+ * Author: Zoltan Tran
+ */
+
 'use strict'
 
 module.exports = class csvReader {
@@ -10,28 +14,26 @@ module.exports = class csvReader {
      * @param string UTF-8 string
      */
     addData (string) {
-        // Find out the line endings of the given string
-        let lfFound = string.indexOf('\n') > 0
-        let crFound = string.indexOf('\r') > 0
-        let newlineChar = '\n'
-        if (lfFound && crFound) {
-            throw new Error('Inconsistent line endings with both CR and LF.')
-        } else if (crFound) {
-            newlineChar = '\r'
-        }
+        let newlineChar = getNewlineChar(string)
         // Split the data into rows
         let rows = string.split(newlineChar)
         // Check row by row
         for (let i = 0;  i < rows.length; ++i) {
-            // Split the individual row into cells
-            let cells = rows[i].split(this._delimiter)
-            // Find the index of the new row in our collection, then initialize
-            let dataRowIndex = this._data.length
-            this._data[dataRowIndex] = []
-            // Finally, save the trimmed values
-            for (let j = 0; j < cells.length; ++j) {
-                this._data[dataRowIndex][j] = cells[j].trim()
-            }
+            // Add the row to the collection
+            this.addRow(rows[i].split(this._delimiter))
+        }
+    }
+    /*
+     * Adds a single row to the collection.
+     * @param cells An array of values
+     */
+    addRow(cells) {
+        // Find the index of the new row in our collection, then initialize
+        let dataRowIndex = this._data.length
+        this._data[dataRowIndex] = []
+        // Save the trimmed values
+        for (let j = 0; j < cells.length; ++j) {
+            this._data[dataRowIndex][j] = cells[j].trim()
         }
     }
     /*
@@ -62,4 +64,15 @@ module.exports = class csvReader {
     get getAll () {
         return this._data
     }
+}
+
+function getNewlineChar (string) {
+    // Find out the line endings of the given string
+    let lfFound = string.indexOf('\n') > 0
+    let crFound = string.indexOf('\r') > 0
+    if (lfFound && crFound) {
+        throw new Error('Inconsistent line endings with both CR and LF.')
+    } else if (crFound) {
+        return '\r'
+    } else return '\n'
 }

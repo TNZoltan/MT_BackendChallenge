@@ -5,9 +5,11 @@ function tester () {
     let csvReaderObj = new csvReader ()
     let string = fs.readFileSync ('sample.csv', 'utf8')
     csvReaderObj.addData(string)
-    console.log(csvReaderObj.latest)
+    console.log(csvReaderObj.getAll)
+    console.log(csvReaderObj.getLatest)
+    console.log(csvReaderObj.getWithIndex(4))
     csvReaderObj.clearData()
-    console.log(csvReaderObj.latest)
+    if (!csvReaderObj.getLatest) console.log('good.')
 }
 
 tester()
