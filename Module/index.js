@@ -65,14 +65,14 @@ module.exports = class csvReader {
         return this._data
     }
 }
-
+/*
+ * Get a newline character from a given string
+ */
 function getNewlineChar (string) {
-    // Find out the line endings of the given string
     let lfFound = string.indexOf('\n') > 0
     let crFound = string.indexOf('\r') > 0
-    if (lfFound && crFound) {
-        throw new Error('Inconsistent line endings with both CR and LF.')
-    } else if (crFound) {
+    if (crFound)
         return '\r'
-    } else return '\n'
+    else 
+        return '\n'
 }
