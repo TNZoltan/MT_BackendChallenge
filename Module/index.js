@@ -19,11 +19,16 @@ module.exports = class csvReader {
         } else if (crFound) {
             newlineChar = '\r'
         }
+        // Split the data into rows
         let rows = string.split(newlineChar)
+        // Check row by row
         for (let i = 0;  i < rows.length; ++i) {
+            // Split the individual row into cells
             let cells = rows[i].split(this._delimiter)
+            // Find the index of the new row in our collection, then initialize
             let dataRowIndex = this._data.length
             this._data[dataRowIndex] = []
+            // Finally, save the trimmed values
             for (let j = 0; j < cells.length; ++j) {
                 this._data[dataRowIndex][j] = cells[j].trim()
             }
@@ -34,5 +39,27 @@ module.exports = class csvReader {
      */
     clearData () {
         this._data = []
+    }
+    /*
+     * Returns the array from a specific index.
+     * @param index The row number
+     */
+    getWithIndex (index) {
+        if (this._data[index]) return this._data[index]
+        else return false
+    }
+    /*
+     * Returns the array of the latest row.
+     */
+    get getLatest () {
+        let N = this._data.length-1
+        if (N > 0) return this._data[N]
+        else return false
+    }
+    /*
+     * Returns the entire collection.
+     */
+    get getAll () {
+        return this._data
     }
 }
